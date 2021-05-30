@@ -77,129 +77,161 @@ rails db:migrate db:seed
 
 Add validations to the `HeroPower` model:
 
-- strength must be one of the following values: 'Strong', 'Weak', 'Average'
+- `strength` must be one of the following values: 'Strong', 'Weak', 'Average'
+
+Add validations to the `Power` model:
+
+- `description` must be at least 25 characters long
 
 ## Routes
 
 Set up the following routes. Make sure to return JSON data in the format
 specified along with the appropriate HTTP verb.
 
-### GET /restaurants
+### GET /heroes
 
 Return JSON data in the format below:
 
 ```json
 [
-  {
-    "id": 1,
-    "name": "Sottocasa NYC",
-    "address": "298 Atlantic Ave, Brooklyn, NY 11201"
-  },
-  {
-    "id": 2,
-    "name": "PizzArte",
-    "address": "69 W 55th St, New York, NY 10019"
-  }
+  { "id": 1, "name": "Kamala Khan", "super_name": "Ms. Marvel" },
+  { "id": 2, "name": "Doreen Green", "super_name": "Squirrel Girl" },
+  { "id": 3, "name": "Gwen Stacy", "super_name": "Spider-Gwen" }
 ]
 ```
 
-### GET /restaurants/:id
+### GET /heroes/:id
 
-If the `Restaurant` exists, return JSON data in the format below:
+If the `Hero` exists, return JSON data in the format below:
 
 ```json
 {
   "id": 1,
-  "name": "Sottocasa NYC",
-  "address": "298 Atlantic Ave, Brooklyn, NY 11201",
-  "pizzas": [
+  "name": "Kamala Khan",
+  "super_name": "Ms. Marvel",
+  "powers": [
     {
       "id": 1,
-      "name": "Cheese",
-      "ingredients": "Dough, Tomato Sauce, Cheese"
+      "name": "super strength",
+      "description": "gives the wielder super-human strengths"
     },
     {
       "id": 2,
-      "name": "Pepperoni",
-      "ingredients": "Dough, Tomato Sauce, Cheese, Pepperoni"
+      "name": "flight",
+      "description": "gives the wielder the ability to fly through the skies at supersonic speed"
     }
   ]
 }
 ```
 
-If the `Restaurant` does not exist, return the following JSON data, along with
+If the `Hero` does not exist, return the following JSON data, along with
 the appropriate HTTP status code:
 
 ```json
 {
-  "error": "Restaurant not found"
+  "error": "Hero not found"
 }
 ```
 
-### DELETE /restaurants/:id
+### GET /powers/:id
 
-If the `Restaurant` exists, it should be removed from the database, along with
-any `RestaurantPizza`s that are associated with it (a `RestaurantPizza` belongs
-to a `Restaurant`, so you need to delete the `RestaurantPizza`s before the
-`Restaurant` can be deleted).
-
-After deleting the `Restaurant`, return an _empty_ response body, along with the
-appropriate HTTP status code.
-
-If the `Restaurant` does not exist, return the following JSON data, along with
-the appropriate HTTP status code:
-
-```json
-{
-  "error": "Restaurant not found"
-}
-```
-
-### GET /pizzas
-
-Return JSON data in the format below:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Cheese",
-    "ingredients": "Dough, Tomato Sauce, Cheese"
-  },
-  {
-    "id": 2,
-    "name": "Pepperoni",
-    "ingredients": "Dough, Tomato Sauce, Cheese, Pepperoni"
-  }
-]
-```
-
-### POST /restaurant_pizzas
-
-This route should create a new `RestaurantPizza` that is associated with an
-existing `Pizza` and `Restaurant`. It should accept an object with the following
-properties in the body of the request:
-
-```json
-{
-  "price": 5,
-  "pizza_id": 1,
-  "restaurant_id": 3
-}
-```
-
-If the `RestaurantPizza` is created successfully, send back a response with the data
-related to the `Pizza`:
+If the `Power` exists, return JSON data in the format below:
 
 ```json
 {
   "id": 1,
-  "name": "Cheese",
-  "ingredients": "Dough, Tomato Sauce, Cheese"
+  "name": "super strength",
+  "description": "gives the wielder super-human strengths"
 }
 ```
 
-If the `RestaurantPizza` is **not** created successfully, return the following
+If the `Power` does not exist, return the following JSON data, along with
+the appropriate HTTP status code:
+
+```json
+{
+  "error": "Power not found"
+}
+```
+
+### PATCH /powers/:id
+
+This route should update an existing `Power`. It should accept an object with
+the following properties in the body of the request:
+
+```json
+{
+  "description": "Updated description"
+}
+```
+
+If the `Power` exists and is updated successfully (passes validations), update
+its description and return JSON data in the format below:
+
+```json
+{
+  "id": 1,
+  "name": "super strength",
+  "description": "Updated description"
+}
+```
+
+If the `Power` does not exist, return the following JSON data, along with
+the appropriate HTTP status code:
+
+```json
+{
+  "error": "Power not found"
+}
+```
+
+If the `Power` is **not** updated successfully (does not pass validations),
+return the following JSON data, along with the appropriate HTTP status code:
+
+```json
+{
+  "errors": ["validation errors"]
+}
+```
+
+### POST /hero_powers
+
+This route should create a new `HeroPower` that is associated with an
+existing `Power` and `Hero`. It should accept an object with the following
+properties in the body of the request:
+
+```json
+{
+  "strength": "Average",
+  "power_id": 1,
+  "hero_id": 3
+}
+```
+
+If the `HeroPower` is created successfully, send back a response with the data
+related to the `Hero`:
+
+```json
+{
+  "id": 1,
+  "name": "Kamala Khan",
+  "super_name": "Ms. Marvel",
+  "powers": [
+    {
+      "id": 1,
+      "name": "super strength",
+      "description": "gives the wielder super-human strengths"
+    },
+    {
+      "id": 2,
+      "name": "flight",
+      "description": "gives the wielder the ability to fly through the skies at supersonic speed"
+    }
+  ]
+}
+```
+
+If the `HeroPower` is **not** created successfully, return the following
 JSON data, along with the appropriate HTTP status code:
 
 ```json
