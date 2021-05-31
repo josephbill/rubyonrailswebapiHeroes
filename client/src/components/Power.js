@@ -30,8 +30,12 @@ function Power() {
     <section>
       <h2>{power.name}</h2>
       <p>{power.description}</p>
-      <Link to="/hero_powers/new">Add Hero Power</Link>
-      <Link to={`/powers/${power.id}/edit`}>Edit Power Description</Link>
+      <p>
+        <Link to="/hero_powers/new">Add Hero Power</Link>
+      </p>
+      <p>
+        <Link to={`/powers/${power.id}/edit`}>Edit Power Description</Link>
+      </p>
     </section>
   );
 }

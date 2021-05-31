@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
 
 function PowerEditForm() {
-  const [{ data: power, error, status }, setPower] = useState({
+  const [{ data: power, errors, status }, setPower] = useState({
     data: null,
-    error: null,
+    errors: [],
     status: "pending",
   });
   const [description, setDescription] = useState("");
@@ -15,12 +15,12 @@ function PowerEditForm() {
     fetch(`/powers/${id}`).then((r) => {
       if (r.ok) {
         r.json().then((power) => {
-          setPower({ data: power, error: null, status: "resolved" });
+          setPower({ data: power, errors: [], status: "resolved" });
           setDescription(power.description);
         });
       } else {
         r.json().then((err) =>
-          setPower({ data: null, error: err.error, status: "rejected" })
+          setPower({ data: null, errors: [err.error], status: "rejected" })
         );
       }
     });
@@ -43,7 +43,7 @@ function PowerEditForm() {
         history.push(`/powers/${power.id}`);
       } else {
         r.json().then((err) =>
-          setPower({ data: null, error: err.error, status: "rejected" })
+          setPower({ data: power, errors: err.errors, status: "rejected" })
         );
       }
     });
@@ -56,11 +56,12 @@ function PowerEditForm() {
       <textarea
         id="description"
         name="description"
+        rows="4"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      {error.length > 0
-        ? error.map((err) => (
+      {errors.length > 0
+        ? errors.map((err) => (
             <p key={err} style={{ color: "red" }}>
               {err}
             </p>
