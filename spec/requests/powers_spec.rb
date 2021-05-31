@@ -11,6 +11,25 @@ RSpec.describe "Powers", type: :request do
     HeroPower.create(hero_id: h2.id, power_id: p2.id, strength: "Average")
   end
 
+  describe "GET /powers" do
+    it 'returns an array of all powers' do
+      get '/powers'
+
+      expect(response.body).to include_json([
+        { 
+          id: a_kind_of(Integer), 
+          name: "super strength", 
+          description: "gives the wielder super-human strengths"
+        },
+        { 
+          id: a_kind_of(Integer), 
+          name: "flight", 
+          description: "gives the wielder the ability to fly through the skies at supersonic speed"
+        }
+      ])
+    end
+  end
+
   describe "GET /powers/:id" do
 
     context "with a valid ID" do

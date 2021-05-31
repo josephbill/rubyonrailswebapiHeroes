@@ -9,7 +9,7 @@ RSpec.describe "HeroPowers", type: :request do
     context "with valid data" do
       let!(:hero_power_params) { { hero_id: h1.id, power_id: p1.id, strength: "Strong" } }
 
-      it 'creates a new HeroPowers' do
+      it 'creates a new HeroPower' do
         expect { post '/hero_powers', params: hero_power_params }.to change(HeroPower, :count).by(1)
       end
 

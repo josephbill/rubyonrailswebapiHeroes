@@ -133,6 +133,25 @@ the appropriate HTTP status code:
 }
 ```
 
+### GET /powers
+
+Return JSON data in the format below:
+
+```json
+[
+  {
+    "id": 1,
+    "name": "super strength",
+    "description": "gives the wielder super-human strengths"
+  },
+  {
+    "id": 1,
+    "name": "flight",
+    "description": "gives the wielder the ability to fly through the skies at supersonic speed"
+  }
+]
+```
+
 ### GET /powers/:id
 
 If the `Power` exists, return JSON data in the format below:

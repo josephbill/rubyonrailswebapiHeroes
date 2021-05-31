@@ -9,7 +9,6 @@ RSpec.describe "Unnecessary Routes", type: :routing do
   end
   
   it "does not define unnecessary power routes" do
-    expect(get: "/powers").not_to be_routable
     expect(post: "/powers").not_to be_routable
     expect(delete: "/powers/1").not_to be_routable
   end
