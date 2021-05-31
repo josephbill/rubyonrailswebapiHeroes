@@ -81,7 +81,7 @@ Add validations to the `HeroPower` model:
 
 Add validations to the `Power` model:
 
-- `description` must be at least 25 characters long
+- `description` must be present and at least 20 characters long
 
 ## Routes
 
