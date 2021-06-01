@@ -12,7 +12,7 @@ function Home() {
 
   return (
     <section>
-      <h2>All Heroines</h2>
+      <h2>All Heroes</h2>
       <ul>
         {heros.map((hero) => (
           <li key={hero.id}>

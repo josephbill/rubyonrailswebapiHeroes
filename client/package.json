@@ -1,5 +1,5 @@
 {
-  "name": "phase_4_rails_api_code_challenge_superheroines-client",
+  "name": "phase-4-rails-api-code-challenge-superheroes-client",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3000",
