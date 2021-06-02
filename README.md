@@ -45,14 +45,14 @@ Depending on your preference, you can either check your progress by:
 - Running `rspec` and seeing if your code passes the tests
 - Running the React application in the browser and interacting with the API via
   the frontend
-- Running the Rails server and using Postman make requests
+- Running the Rails server and using Postman to make requests
 
 ## Models
 
 You need to create the following relationships:
 
 - A `Hero` has many `Power`s through `HeroPower`
-- A `Poer` has many `Hero`s through `HeroPower`
+- A `Power` has many `Hero`s through `HeroPower`
 - A `HeroPower` belongs to a `Hero` and belongs to a `Power`
 
 Start by creating the models and migrations for the following database tables:
