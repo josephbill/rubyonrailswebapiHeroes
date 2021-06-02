@@ -28,6 +28,12 @@ RSpec.describe "Powers", type: :request do
         }
       ])
     end
+
+    it 'returns a status of 200 (OK)' do
+      get "/powers"
+
+      expect(response).to have_http_status(:ok)
+    end
   end
 
   describe "GET /powers/:id" do
@@ -36,6 +42,7 @@ RSpec.describe "Powers", type: :request do
 
       it "returns the matching power" do
         get "/powers/#{Power.first.id}"
+        
         expect(response.body).to include_json({
           id: a_kind_of(Integer),
           name: "super strength", 
@@ -43,6 +50,11 @@ RSpec.describe "Powers", type: :request do
         })
       end
 
+      it 'returns a status of 200 (OK)' do
+        get "/powers/#{Power.first.id}"
+
+        expect(response).to have_http_status(:ok)
+      end
     end
 
     context "with an invalid ID" do

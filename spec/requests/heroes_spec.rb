@@ -28,6 +28,12 @@ RSpec.describe "Heroes", type: :request do
         }
       ])
     end
+
+    it 'returns a status of 200 (OK)' do
+      get "/heroes"
+      
+      expect(response).to have_http_status(:ok)
+    end
   end
 
   describe "GET /heroes/:id" do
@@ -36,6 +42,7 @@ RSpec.describe "Heroes", type: :request do
 
       it "returns the matching hero with its associated powers" do
         get "/heroes/#{Hero.first.id}"
+
         expect(response.body).to include_json({
           id: a_kind_of(Integer),
           name: "Kamala Khan", 
@@ -55,6 +62,11 @@ RSpec.describe "Heroes", type: :request do
         })
       end
       
+      it 'returns a status of 200 (OK)' do
+        get "/heroes/#{Hero.first.id}"
+
+        expect(response).to have_http_status(:ok)
+      end
     end
 
     context "with an invalid ID" do
