@@ -7,13 +7,13 @@ RSpec.describe HeroPower, type: :model do
 
   describe "relationships" do
 
-    it 'belongs to a Hero' do
+    it 'can access the associated hero' do
       hero_power = HeroPower.create(hero_id: hero.id, power_id: power.id, strength: "Strong")
 
       expect(hero_power.hero).to eq(hero)
     end
 
-    it 'belongs to a Power' do
+    it 'can access the associated power' do
       hero_power = HeroPower.create(hero_id: hero.id, power_id: power.id, strength: "Strong")
 
       expect(hero_power.power).to eq(power)
