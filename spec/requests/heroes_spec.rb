@@ -34,6 +34,16 @@ RSpec.describe "Heroes", type: :request do
       
       expect(response).to have_http_status(:ok)
     end
+
+    it 'does not return any nested powers' do
+      get '/heroes'
+
+      expect(response.body).not_to include_json([
+        {
+          powers: a_kind_of(Array)
+        }
+      ])
+    end
   end
 
   describe "GET /heroes/:id" do
