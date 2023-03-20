@@ -12,6 +12,13 @@ class HerosController  < ApplicationController
         render json: hero, serializer: HeroSerializer, status: :ok
       end
 
+
+      def summary
+        hero = Hero.find(params[:id])
+        render json: hero, serializer: HeroSummarySerializer
+      end
+
+
     private
 
     def find_hero
